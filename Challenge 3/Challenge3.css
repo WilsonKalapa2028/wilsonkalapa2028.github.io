@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  background: #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  width: 80%;
+  height: 60vh;
+}
+
+.left {
+  flex: 2;
+  background: #e6a8b0;
+}
+
+.middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.middle div {
+  flex: 1;
+}
+
+.top {
+  background: #6fd3b5;
+}
+
+.center {
+  background: #5c85d6;
+}
+
+.bottom {
+  background: #b784c3;
+}
+
+.right {
+  flex: 2;
+  background: #ded37a;
+}
