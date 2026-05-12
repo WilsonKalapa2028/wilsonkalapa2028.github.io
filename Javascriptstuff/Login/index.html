@@ -1,12 +1,23 @@
-<link rel="stylesheet" href="style.css">
-<script src="scripts.js" defer></script>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Instagram.com/login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js" defer></script>
+</head>
 <body>
 
-<p> Username </p>
-<input>
-<p> Password </p>
-<input>
-<button id="enter"> Enter</button>
+    <div class="login-container">
+        <h1>Instagram</h1>
+
+        <input type="text" id="username" placeholder="Username">
+
+        <input type="password" id="password" placeholder="Password">
+
+        <button onclick="login()">Login</button>
+
+        <p id="message"></p>
+    </div>
 
 </body>
+</html>
