@@ -1,18 +1,332 @@
-<link rel="stylesheet" href="style.css">
-<script src="scripts.js" defer></script>
+<link rel="stylesheet" type="text/css" href="styles.css">
+<script src=""script.js" defer ></script>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Which Barcelona Player Are you?</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background: linear-gradient(135deg, #ff0000, #0d00ff);
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:30px;
+      color:white;
+    }
+
+    .quiz-container{
+      width:100%;
+      max-width:700px;
+      background: linear-gradient(135deg, #2f00ff, yellow, #ff0000);
+      color:#000000;
+      border-radius:20px;
+      padding:35px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.25);
+      animation: fadeIn 0.5s ease;
+    }
+
+    h1{
+      text-align:center;
+      margin-bottom:10px;
+      font-size:2.5rem;
+      color:#ff0000;
+    }
+
+    .subtitle{
+      text-align:center;
+      margin-bottom:30px;
+      color:#fbfbfb;
+    }
+
+    .question{
+      margin-bottom:30px;
+    }
+
+    .question h2{
+      margin-bottom:15px;
+      font-size:1.3rem;
+    }
+
+    .answers button{
+      width:100%;
+      border:none;
+      padding:15px;
+      margin:10px 0;
+      border-radius:12px;
+      cursor:pointer;
+      background:#f1f1f1;
+      transition:0.3s;
+      font-size:1rem;
+      text-align:left;
+    }
+
+    .answers button:hover{
+      background:#00b894;
+      color:white;
+      transform:scale(1.02);
+    }
+
+    #next-btn{
+      width:100%;
+      padding:15px;
+      border:none;
+      background:#2600ff;
+      color:white;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:1rem;
+      display:none;
+      transition:0.3s;
+    }
+
+    #next-btn:hover{
+      background:#0768b5;
+    }
+
+    .result{
+      text-align:center;
+      display:none;
+    }
+
+    .result h2{
+      font-size:2rem;
+      margin-bottom:15px;
+      color:#00b894;
+    }
+
+    .result p{
+      font-size:1.2rem;
+      margin-bottom:20px;
+    }
+
+    .restart-btn{
+      padding:14px 25px;
+      border:none;
+      background:#00b894;
+      color:white;
+      border-radius:12px;
+      cursor:pointer;
+      font-size:1rem;
+    }
+
+    .restart-btn:hover{
+      background:#00997a;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(15px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+  </style>
+</head>
 <body>
-    <h1 id="title"> Which Stray Kids Member Are You?</h1>
-    <h3> What color would you choose?</h3>
-    <input type="radio" name="q1" id="q1-a1">
-    <p>Red</p>
-    <input type="radio" name="q2" id="q1-a1">
-    <p>pink</p>
-    <input type="radio" name="q3" id="q1-a1">
-    <p>green</p>
-    <input type="radio" name="q4" id="q1-a1">
-    <p>blue</p>
 
-    <button id="submit-button"> SUBMIT</button>
-    <p id="result"></p>
+  <div class="quiz-container">
+
+    <h1> Visca Barca!</h1>
+    <p class="subtitle">Which Barcelona Player Are You??</p>
+
+    <div id="quiz">
+
+      <div class="question">
+        <h2 id="question-text"></h2>
+      </div>
+
+      <div class="answers" id="answer-buttons"></div>
+
+      <button id="next-btn">Great Choice! Press for next question</button>
+
+    </div>
+
+    <div class="result" id="result">
+      <h2 id="result-title"></h2>
+      <p id="result-description"></p>
+
+      <button class="restart-btn" onclick="restartQuiz()">
+        Want Another Try?
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "pick a number.",
+        answers: [
+          { text: "10", type: "Lamine Yamal" },
+          { text: "9", type: "Robert Lewandowski" },
+          { text: "14", type: "Marcus Rashford" },
+          { text: "11", type: "Raphinia" }
+        ]
+      },
+
+      {
+        question: "What foot do you mainly use?",
+        answers: [
+          { text: "Right", type: "Lamine Yamal" },
+          { text: "Left", type: "Robert Lewandowski" },
+          { text: "Both", type: "Marcus Rashford" },
+          { text: "none", type: "Raphinia" }
+        ]
+      },
+
+      {
+        question: "What would you rather do in a game?",
+        answers: [
+          { text: "Get 3 assists", type: "Lamine Yamal" },
+          { text: "Score a Hat Trick", type: "Robert Lewandowski" },
+          { text: "fight through all defenders", type: "Marcus Rashford" },
+          { text: "score a long kick", type: "Raphinia" }
+        ]
+      },
+
+      {
+        question: "Whos your Rival team? (you dont get a choie)",
+        answers: [
+          { text: "Real Madrid", type: "Lamine Yamal" },
+          { text: "Real Madrid", type: "Robert Lewandowski" },
+          { text: "Real Madrid", type: "Marcus Rashford" },
+          { text: "Real Madrid", type: "Raphinia" }
+        ]
+      }
+    ];
+
+    let currentQuestion = 0;
+
+    let scores = {
+      striker: 0,
+      midfielder: 0,
+      defender: 0,
+      goalkeeper: 0
+    };
+
+    const questionText = document.getElementById("question-text");
+    const answerButtons = document.getElementById("answer-buttons");
+    const nextBtn = document.getElementById("next-btn");
+
+    function showQuestion() {
+
+      resetState();
+
+      let question = questions[currentQuestion];
+
+      questionText.innerText = question.question;
+
+      question.answers.forEach(answer => {
+
+        const button = document.createElement("button");
+
+        button.innerText = answer.text;
+
+        button.addEventListener("click", () => {
+
+          scores[answer.type]++;
+
+          Array.from(answerButtons.children).forEach(btn => {
+            btn.disabled = true;
+          });
+
+          button.style.background = "#00b894";
+          button.style.color = "white";
+
+          nextBtn.style.display = "block";
+        });
+
+        answerButtons.appendChild(button);
+      });
+    }
+
+    function resetState() {
+      nextBtn.style.display = "none";
+      answerButtons.innerHTML = "";
+    }
+
+    nextBtn.addEventListener("click", () => {
+
+      currentQuestion++;
+
+      if(currentQuestion < questions.length){
+        showQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    function showResult() {
+
+      document.getElementById("quiz").style.display = "none";
+      document.getElementById("result").style.display = "block";
+
+      let highest = Object.keys(scores).reduce((a, b) =>
+        scores[a] > scores[b] ? a : b
+      );
+
+      const title = document.getElementById("result-title");
+      const description = document.getElementById("result-description");
+
+      if(highest === "Lamine Yamal"){
+        title.innerText = "YAMALLLLLL";
+        description.innerText =
+          "You're confident, fast, and love scoring goals. but great at helping others.";
+      }
+
+      if(highest === "Robert Lewandowski"){
+        title.innerText = "Your ROBERT LEWANDOWSKI";
+        description.innerText =
+          "You're the playmaker of the team and control the game like a true leader.";
+      }
+
+      if(highest === "Marcus Rashford"){
+        title.innerText = "RASHFORD";
+        description.innerText =
+          "You're strong, reliable, and protect your team no matter what.";
+      }
+
+      if(highest === "Raphinia"){
+        title.innerText = "your RAPHINIA";
+        description.innerText =
+          "You're fearless under pressure and always come up clutch.";
+      }
+    }
+
+    function restartQuiz(){
+
+      currentQuestion = 0;
+
+      scores = {
+        striker: 0,
+        midfielder: 0,
+        defender: 0,
+        goalkeeper: 0
+      };
+
+      document.getElementById("quiz").style.display = "block";
+      document.getElementById("result").style.display = "none";
+
+      showQuestion();
+    }
+
+    showQuestion();
+  </script>
+
 </body>
+</html>
